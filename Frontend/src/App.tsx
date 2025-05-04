@@ -36,14 +36,11 @@ function App() {
               <Route path="customers/:id" element={<CustomerProfilePage />} />
               <Route path="editor" element={<ContentEditorPage />} />
               <Route path="notifications" element={<NotificationPage />} />
-              {/* Update support routes */}
               <Route path="support" element={<ChatbotPage />} />
               <Route path="support/email" element={<EmailSupportPage />} />
               <Route path="support/chat" element={<LiveChatPage />} />
               <Route path="support/call" element={<ScheduleCallPage />} />
             </Route>
-            
-            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </Router>
       </AuthProvider>

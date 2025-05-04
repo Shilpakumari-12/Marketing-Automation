@@ -1,8 +1,25 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Send, Paperclip, Image, File, Smile, Bot, User, Maximize2, ArrowRight, X, ExternalLink, Mail, MessageSquare, Phone, Minimize } from 'lucide-react';
+import { 
+  Send, 
+  Paperclip, 
+  Image, 
+  File, 
+  Smile, 
+  Bot, 
+  User, 
+  Maximize2, 
+  ArrowRight, 
+  X, 
+  ExternalLink, 
+  Mail, 
+  MessageSquare, 
+  Phone, 
+  Minimize 
+} from 'lucide-react';
 import { GoogleLogin } from '@react-oauth/google';
 import { initializeApp } from 'firebase/app';
 import { getAuth, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
 
 // Firebase configuration
 const firebaseConfig = {
@@ -56,7 +73,8 @@ const knowledgeBaseArticles = [
   },
 ];
 
-import { useNavigate } from 'react-router-dom';
+// Remove this duplicate import
+// import { useNavigate } from 'react-router-dom';
 
 const ChatbotPage: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([
@@ -162,6 +180,43 @@ const ChatbotPage: React.FC = () => {
         </div>
       </div>
       
+      {/* Support Options */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div 
+          className="bg-white p-6 rounded-lg shadow-sm cursor-pointer hover:shadow-md transition-shadow"
+          onClick={() => navigate('/support/email')}
+        >
+          <div className="flex items-center mb-4">
+            <Mail className="h-6 w-6 text-primary-600 mr-2" />
+            <h2 className="text-xl font-semibold">Email Support</h2>
+          </div>
+          <p className="text-gray-600">Send us a detailed message and we'll respond within 24 hours.</p>
+        </div>
+      
+        <div 
+          className="bg-white p-6 rounded-lg shadow-sm cursor-pointer hover:shadow-md transition-shadow"
+          onClick={() => navigate('/support/chat')}
+        >
+          <div className="flex items-center mb-4">
+            <MessageSquare className="h-6 w-6 text-primary-600 mr-2" />
+            <h2 className="text-xl font-semibold">Live Chat</h2>
+          </div>
+          <p className="text-gray-600">Chat with our support team in real-time.</p>
+        </div>
+      
+        <div 
+          className="bg-white p-6 rounded-lg shadow-sm cursor-pointer hover:shadow-md transition-shadow"
+          onClick={() => navigate('/support/call')}
+        >
+          <div className="flex items-center mb-4">
+            <Phone className="h-6 w-6 text-primary-600 mr-2" />
+            <h2 className="text-xl font-semibold">Schedule Call</h2>
+          </div>
+          <p className="text-gray-600">Book a call with our support team at your convenience.</p>
+        </div>
+      </div>
+      
+      {/* Chatbot Interface */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className={`lg:col-span-${isExpanded ? '3' : '2'}`}>
           <div className="bg-white rounded-lg shadow-sm overflow-hidden flex flex-col h-[600px]">
@@ -341,8 +396,6 @@ const ChatbotPage: React.FC = () => {
                 <p className="text-sm text-gray-500 mb-4">
                   Need to speak with a human? Our support team is available 24/7.
                 </p>
-                
-                // Inside the Contact Support section, update the buttons:
                 <div className="space-y-3">
                   <button 
                     className="btn btn-outline w-full justify-between"
