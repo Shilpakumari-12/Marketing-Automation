@@ -12,6 +12,9 @@ import ContentEditorPage from './pages/ContentEditorPage';
 import NotificationPage from './pages/NotificationPage';
 import ChatbotPage from './pages/ChatbotPage';
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import EmailSupportPage from './pages/EmailSupportPage';
+import LiveChatPage from './pages/LiveChatPage';
+import ScheduleCallPage from './pages/ScheduleCallPage';
 
 function App() {
   return (
@@ -33,7 +36,11 @@ function App() {
               <Route path="customers/:id" element={<CustomerProfilePage />} />
               <Route path="editor" element={<ContentEditorPage />} />
               <Route path="notifications" element={<NotificationPage />} />
+              {/* Update support routes */}
               <Route path="support" element={<ChatbotPage />} />
+              <Route path="support/email" element={<EmailSupportPage />} />
+              <Route path="support/chat" element={<LiveChatPage />} />
+              <Route path="support/call" element={<ScheduleCallPage />} />
             </Route>
             
             <Route path="*" element={<Navigate to="/" replace />} />

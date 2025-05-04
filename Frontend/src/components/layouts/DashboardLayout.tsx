@@ -61,7 +61,7 @@ const DashboardLayout: React.FC = () => {
             <div className="bg-primary-100 p-1.5 rounded-md">
               <BarChart4 className="h-6 w-6 text-primary-600" />
             </div>
-            <span className="ml-2 text-xl font-bold text-gray-900">MarketMaster</span>
+            <span className="ml-2 text-xl font-bold text-gray-900">MarketMaster Automation</span>
           </Link>
           <button
             className="lg:hidden focus:outline-none"

@@ -56,6 +56,8 @@ const knowledgeBaseArticles = [
   },
 ];
 
+import { useNavigate } from 'react-router-dom';
+
 const ChatbotPage: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
@@ -340,18 +342,28 @@ const ChatbotPage: React.FC = () => {
                   Need to speak with a human? Our support team is available 24/7.
                 </p>
                 
+                // Inside the Contact Support section, update the buttons:
                 <div className="space-y-3">
-                  <button className="btn btn-outline w-full justify-between">
+                  <button 
+                    className="btn btn-outline w-full justify-between"
+                    onClick={() => navigate('/support/email')}
+                  >
                     <span>Email Support</span>
                     <Mail className="h-4 w-4" />
                   </button>
                   
-                  <button className="btn btn-outline w-full justify-between">
+                  <button 
+                    className="btn btn-outline w-full justify-between"
+                    onClick={() => navigate('/support/chat')}
+                  >
                     <span>Live Chat</span>
                     <MessageSquare className="h-4 w-4" />
                   </button>
                   
-                  <button className="btn btn-outline w-full justify-between">
+                  <button 
+                    className="btn btn-outline w-full justify-between"
+                    onClick={() => navigate('/support/call')}
+                  >
                     <span>Schedule Call</span>
                     <Phone className="h-4 w-4" />
                   </button>
