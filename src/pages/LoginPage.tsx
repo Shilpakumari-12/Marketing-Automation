@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { useNavigate, useLocation, Navigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { BarChart4, Lock, Mail } from 'lucide-react';
+import { GoogleLogin } from '@react-oauth/google';
+import { initializeApp } from 'firebase/app';
+import { getAuth, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider } from 'firebase/auth';
 
 interface LocationState {
   from?: {
@@ -41,6 +44,33 @@ const LoginPage: React.FC = () => {
     }
   };
   
+  const handleGoogleLogin = async (credentialResponse: any) => {
+    try {
+      setIsSubmitting(true);
+      // Implement your Google login logic here
+      console.log(credentialResponse);
+      // await login with Google
+      navigate(from, { replace: true });
+    } catch (error) {
+      setLoginError('Failed to sign in with Google');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+  
+  const handleFacebookLogin = async () => {
+    try {
+      setIsSubmitting(true);
+      // Implement your Facebook login logic here
+      // await login with Facebook
+      navigate(from, { replace: true });
+    } catch (error) {
+      setLoginError('Failed to sign in with Facebook');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+  
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-50 to-secondary-50 p-4">
       <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-xl shadow-lg">
@@ -49,8 +79,8 @@ const LoginPage: React.FC = () => {
             <div className="bg-primary-100 p-3 rounded-full">
               <BarChart4 className="h-8 w-8 text-primary-600" />
             </div>
-          </div>
-          <h2 className="text-3xl font-bold text-gray-900">MarketMaster</h2>
+ i          </div>
+          <h2 className="text-3xl font-bold text-gray-900">Market Automation</h2>
           <p className="mt-2 text-sm text-gray-600">
             Sign in to your account to access your marketing dashboard
           </p>
@@ -141,8 +171,39 @@ const LoginPage: React.FC = () => {
                   Signing in...
                 </span>
               ) : (
-                'Sign in'
+                'Sign in with Email'
               )}
+            </button>
+          </div>
+
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-gray-300"></div>
+            </div>
+            <div className="relative flex justify-center text-sm">
+              <span className="px-2 bg-white text-gray-500">Or continue with</span>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-3">
+            <GoogleLogin
+              onSuccess={handleGoogleLogin}
+              onError={() => setLoginError('Failed to sign in with Google')}
+              useOneTap
+              theme="outline"
+              size="large"
+              text="signin_with"
+              shape="rectangular"
+            />
+            
+            <button
+              type="button"
+              onClick={handleFacebookLogin}
+              className="btn btn-outline flex items-center justify-center space-x-2 py-2"
+              disabled={isSubmitting}
+            >
+              <img src="/facebook-icon.svg" alt="Facebook" className="w-5 h-5" />
+              <span>Facebook</span>
             </button>
           </div>
         </form>
