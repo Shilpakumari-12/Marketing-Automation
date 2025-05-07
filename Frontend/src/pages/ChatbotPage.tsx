@@ -73,9 +73,6 @@ const knowledgeBaseArticles = [
   },
 ];
 
-// Remove this duplicate import
-// import { useNavigate } from 'react-router-dom';
-
 const ChatbotPage: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
@@ -184,7 +181,7 @@ const ChatbotPage: React.FC = () => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         <div 
           className="bg-white p-6 rounded-lg shadow-sm cursor-pointer hover:shadow-md transition-shadow"
-          onClick={() => navigate('/support/email')}
+          onClick={handleEmailSupport}
         >
           <div className="flex items-center mb-4">
             <Mail className="h-6 w-6 text-primary-600 mr-2" />
@@ -195,7 +192,7 @@ const ChatbotPage: React.FC = () => {
       
         <div 
           className="bg-white p-6 rounded-lg shadow-sm cursor-pointer hover:shadow-md transition-shadow"
-          onClick={() => navigate('/support/chat')}
+          onClick={handleLiveChat}
         >
           <div className="flex items-center mb-4">
             <MessageSquare className="h-6 w-6 text-primary-600 mr-2" />
@@ -206,7 +203,7 @@ const ChatbotPage: React.FC = () => {
       
         <div 
           className="bg-white p-6 rounded-lg shadow-sm cursor-pointer hover:shadow-md transition-shadow"
-          onClick={() => navigate('/support/call')}
+          onClick={handleScheduleCall}
         >
           <div className="flex items-center mb-4">
             <Phone className="h-6 w-6 text-primary-600 mr-2" />
@@ -399,7 +396,7 @@ const ChatbotPage: React.FC = () => {
                 <div className="space-y-3">
                   <button 
                     className="btn btn-outline w-full justify-between"
-                    onClick={() => navigate('/support/email')}
+                    onClick={handleEmailSupport}
                   >
                     <span>Email Support</span>
                     <Mail className="h-4 w-4" />
@@ -407,7 +404,7 @@ const ChatbotPage: React.FC = () => {
                   
                   <button 
                     className="btn btn-outline w-full justify-between"
-                    onClick={() => navigate('/support/chat')}
+                    onClick={handleLiveChat}
                   >
                     <span>Live Chat</span>
                     <MessageSquare className="h-4 w-4" />
@@ -415,7 +412,7 @@ const ChatbotPage: React.FC = () => {
                   
                   <button 
                     className="btn btn-outline w-full justify-between"
-                    onClick={() => navigate('/support/call')}
+                    onClick={handleScheduleCall}
                   >
                     <span>Schedule Call</span>
                     <Phone className="h-4 w-4" />
