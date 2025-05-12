@@ -18,29 +18,33 @@ import ScheduleCallPage from './pages/ScheduleCallPage';
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/login" element={<LoginPage />} />
-        
-        <Route path="/" element={
-          <ProtectedRoute>
-            <DashboardLayout />
-          </ProtectedRoute>
-        }>
-          <Route index element={<Navigate to="/campaigns" replace />} />
-          <Route path="campaigns" element={<CampaignDashboard />} />
-          <Route path="segmentation" element={<SegmentationPage />} />
-          <Route path="analytics" element={<AnalyticsPage />} />
-          <Route path="customers/:id" element={<CustomerProfilePage />} />
-          <Route path="editor" element={<ContentEditorPage />} />
-          <Route path="notifications" element={<NotificationPage />} />
-          <Route path="/support" element={<ChatbotPage />} />
-          <Route path="/support/email" element={<EmailSupportPage />} />
-          <Route path="/support/chat" element={<LiveChatPage />} />
-          <Route path="/support/call" element={<ScheduleCallPage />} />
-        </Route>
-      </Routes>
-    </Router>
+    <GoogleOAuthProvider clientId="your-google-client-id">
+      <AuthProvider>
+        <Router>
+          <Routes>
+            <Route path="/login" element={<LoginPage />} />
+            
+            <Route path="/" element={
+              <ProtectedRoute>
+                <DashboardLayout />
+              </ProtectedRoute>
+            }>
+              <Route index element={<Navigate to="/campaigns" replace />} />
+              <Route path="campaigns" element={<CampaignDashboard />} />
+              <Route path="segmentation" element={<SegmentationPage />} />
+              <Route path="analytics" element={<AnalyticsPage />} />
+              <Route path="customers/:id" element={<CustomerProfilePage />} />
+              <Route path="editor" element={<ContentEditorPage />} />
+              <Route path="notifications" element={<NotificationPage />} />
+              <Route path="support" element={<ChatbotPage />} />
+              <Route path="support/email" element={<EmailSupportPage />} />
+              <Route path="support/chat" element={<LiveChatPage />} />
+              <Route path="support/call" element={<ScheduleCallPage />} />
+            </Route>
+          </Routes>
+        </Router>
+      </AuthProvider>
+    </GoogleOAuthProvider>
   );
 }
 

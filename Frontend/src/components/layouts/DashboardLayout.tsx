@@ -32,14 +32,26 @@ const DashboardLayout: React.FC = () => {
     { name: 'Notifications', href: '/notifications', icon: Bell },
     { name: 'Support', href: '/support', icon: MessageSquare },
   ];
-  
-  const closeSidebar = () => setSidebarOpen(false);
-  
-  const handleLogout = () => {
-    logout();
-    navigate('/login');
+
+  // Add error boundary and loading state
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  // Handle navigation errors
+  const handleNavigation = (path: string) => {
+    try {
+      setIsLoading(true);
+      setError(null);
+      navigate(path);
+    } catch (err) {
+      setError('Navigation failed. Please try again.');
+      console.error('Navigation error:', err);
+    } finally {
+      setIsLoading(false);
+    }
   };
-  
+
+  // Update the main content area to handle loading and errors
   return (
     <div className="h-screen flex overflow-hidden bg-gray-50">
       {/* Mobile sidebar overlay */}
@@ -170,9 +182,19 @@ const DashboardLayout: React.FC = () => {
           </div>
         </header>
         
-        {/* Main content area */}
+        {/* Main content area with error handling */}
         <main className="flex-1 overflow-auto bg-gray-50">
-          <Outlet />
+          {isLoading ? (
+            <div className="flex items-center justify-center h-full">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
+            </div>
+          ) : error ? (
+            <div className="flex items-center justify-center h-full">
+              <div className="text-red-600">{error}</div>
+            </div>
+          ) : (
+            <Outlet />
+          )}
         </main>
       </div>
     </div>
