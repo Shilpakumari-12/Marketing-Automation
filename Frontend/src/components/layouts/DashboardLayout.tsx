@@ -52,6 +52,19 @@ const DashboardLayout: React.FC = () => {
   };
 
   // Update the main content area to handle loading and errors
+  const closeSidebar = () => setSidebarOpen(false);
+  
+  const handleLogout = async () => {
+    try {
+      await logout();
+      navigate('/login');
+    } catch (err) {
+      console.error('Logout error:', err);
+    }
+  };
+
+  // Remove the handleNavigation function since we're using Link components
+  
   return (
     <div className="h-screen flex overflow-hidden bg-gray-50">
       {/* Mobile sidebar overlay */}

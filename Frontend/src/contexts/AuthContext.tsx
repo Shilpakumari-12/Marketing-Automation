@@ -28,69 +28,31 @@ export const useAuth = () => {
 };
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<User | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [user, setUser] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
 
-  // Check if user is logged in on mount
   useEffect(() => {
+    // Check if user is logged in
     const checkAuth = async () => {
       try {
-        const storedUser = localStorage.getItem('marketmaster_user');
-        if (storedUser) {
-          setUser(JSON.parse(storedUser));
-        }
-      } catch (err) {
-        console.error('Authentication error:', err);
-      } finally {
-        setIsLoading(false);
+        // Add your auth check logic here
+        setLoading(false);
+      } catch (error) {
+        console.error('Auth check failed:', error);
+        setLoading(false);
       }
     };
-
+    
     checkAuth();
   }, []);
 
-  const login = async (email: string, password: string) => {
-    setIsLoading(true);
-    setError(null);
-    
-    try {
-      // This is a mock login - in real application, this would be an API call
-      if (email === 'admin@example.com' && password === 'password') {
-        const userData: User = {
-          id: '1',
-          name: 'Admin User',
-          email: 'admin@example.com',
-          role: 'admin',
-          avatar: 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=150',
-        };
-        
-        setUser(userData);
-        localStorage.setItem('marketmaster_user', JSON.stringify(userData));
-      } else {
-        throw new Error('Invalid credentials');
-      }
-    } catch (err) {
-      setError((err as Error).message);
-      throw err;
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
-  const logout = () => {
-    setUser(null);
-    localStorage.removeItem('marketmaster_user');
-  };
-
-  const value = {
-    user,
-    isAuthenticated: !!user,
-    isLoading,
-    login,
-    logout,
-    error,
-  };
-
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ user, setUser, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
